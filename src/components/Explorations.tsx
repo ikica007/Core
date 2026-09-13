@@ -30,8 +30,10 @@ export function Explorations() {
 
     if (!section || !center || !col1 || !col2) return;
 
-    const ctx = gsap.context(() => {
-      // Pin center content
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 768px)", () => {
+      // Desktop animations
       ScrollTrigger.create({
         trigger: section,
         start: "top top",
@@ -40,7 +42,6 @@ export function Explorations() {
         pinSpacing: false,
       });
 
-      // Parallax columns
       gsap.to(col1, {
         yPercent: -50,
         ease: "none",
@@ -62,30 +63,30 @@ export function Explorations() {
           scrub: true,
         }
       });
-    }, sectionRef);
+    });
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative min-h-[300vh] bg-bg overflow-hidden">
-      {/* Layer 1: Pinned Center */}
+    <section ref={sectionRef} className="relative md:min-h-[300vh] bg-bg overflow-hidden py-20 md:py-0">
+      {/* Layer 1: Pinned Center (Desktop) / Normal Flow (Mobile) */}
       <div 
         ref={centerContentRef} 
-        className="absolute top-0 left-0 w-full h-screen flex flex-col items-center justify-center z-10 pointer-events-none"
+        className="relative md:absolute md:top-0 md:left-0 w-full md:h-screen flex flex-col items-center justify-center z-10 mb-12 md:mb-0 pointer-events-none"
       >
-        <div className="bg-bg/80 backdrop-blur-xl p-10 rounded-[3rem] border border-stroke flex flex-col items-center text-center max-w-lg mx-4 pointer-events-auto">
+        <div className="bg-bg/80 backdrop-blur-xl p-8 md:p-10 rounded-[3rem] border border-stroke flex flex-col items-center text-center max-w-lg mx-4 pointer-events-auto">
           <div className="flex items-center gap-4 mb-6">
             <div className="w-8 h-px bg-stroke" />
             <span className="text-xs text-muted uppercase tracking-[0.3em]">{t('explorations')}</span>
             <div className="w-8 h-px bg-stroke" />
           </div>
           
-          <h2 className="text-5xl md:text-7xl text-text-primary tracking-tight mb-6">
+          <h2 className="text-4xl md:text-5xl lg:text-7xl text-text-primary tracking-tight mb-6">
             Vizualno <span className="font-display italic">igralište</span>
           </h2>
           
-          <p className="text-muted mb-8 max-w-xs">
+          <p className="text-muted mb-8 max-w-xs text-sm md:text-base">
             {t('explorationsDesc')}
           </p>
           
@@ -99,11 +100,11 @@ export function Explorations() {
         </div>
       </div>
 
-      {/* Layer 2: Parallax Columns */}
-      <div className="relative z-20 max-w-[1400px] mx-auto px-6 md:px-10 h-full flex justify-between pointer-events-none pt-[50vh]">
+      {/* Layer 2: Parallax Columns (Desktop) / Stacked Grid (Mobile) */}
+      <div className="relative z-20 max-w-[1400px] mx-auto px-4 md:px-6 lg:px-10 h-full flex flex-col md:flex-row justify-between pointer-events-none md:pt-[50vh] gap-6 md:gap-0">
         
         {/* Column 1 */}
-        <div ref={col1Ref} className="w-[45%] md:w-[35%] flex flex-col gap-12 md:gap-40 pointer-events-auto mt-[20vh]">
+        <div ref={col1Ref} className="w-full md:w-[45%] lg:w-[35%] flex flex-col gap-6 md:gap-12 lg:gap-40 pointer-events-auto md:mt-[20vh] items-center md:items-start">
           {images.slice(0, 3).map((img, i) => (
             <div 
               key={i} 
@@ -121,7 +122,7 @@ export function Explorations() {
         </div>
 
         {/* Column 2 */}
-        <div ref={col2Ref} className="w-[45%] md:w-[35%] flex flex-col items-end gap-12 md:gap-40 pointer-events-auto mt-[10vh]">
+        <div ref={col2Ref} className="w-full md:w-[45%] lg:w-[35%] flex flex-col items-center md:items-end gap-6 md:gap-12 lg:gap-40 pointer-events-auto md:mt-[10vh]">
           {images.slice(3, 6).map((img, i) => (
             <div 
               key={i + 3} 
