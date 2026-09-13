@@ -182,7 +182,7 @@ export function Navbar() {
               onClick={() => { toggleLanguage(); setMobileMenuOpen(false); }}
               className="text-lg text-muted hover:text-text-primary transition-colors"
             >
-              <ScrambleText text={language === 'bs' ? 'Switch to English' : 'Prebaci na Bosanski'} />
+              <ScrambleText text={language === 'bs' ? 'Switch to English' : 'Prebaci na Srpski'} />
             </button>
 
             <button
