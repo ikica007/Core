@@ -1,0 +1,6 @@
+{
+  "name": "Core Portfolio",
+  "description": "Portfolio for Core - Dizajn van vremena, a timeless design studio.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
